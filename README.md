@@ -28,7 +28,7 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [NYM-Capstone] <a name="about-project"></a>
+# 📖 [BookStore] <a name="about-project"></a>
 
 This website is specifically crafted for exploring book details.
 
@@ -69,7 +69,7 @@ This website is specifically crafted for exploring book details.
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link]()
+- [Live Demo Link](Coming soon)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
