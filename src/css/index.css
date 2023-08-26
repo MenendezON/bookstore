@@ -49,7 +49,7 @@ button {
   border: 0;
 }
 
-.book button {
+.book > button {
   height: 30px;
   background-color: #1e9cff;
   text-transform: uppercase;
@@ -65,20 +65,19 @@ button {
   margin-bottom: 15px;
 }
 
-.book ul {
-  list-style: none;
-  position: relative;
-  left: -40px;
+.part-3 button {
+  margin-top: 15px;
+  width: 150px;
 }
 
-.book ul li {
-  display: inline;
-}
-
-.book ul li a {
-  text-decoration: none;
-  color: #1e9cff;
-  margin: 0 20px 0 0;
+.part-1 div button {
+  background-color: white;
+  color: #a9c8e2;
+  width: 65px;
+  padding: 0;
+  margin-right: 15px;
+  text-transform: none;
+  cursor: pointer;
 }
 
 hr {
@@ -108,7 +107,7 @@ h2 {
 }
 
 .part-1 sub {
-  color: #1e9cff;
+  color: #a9c8e2;
 }
 
 .part-2 {
@@ -133,18 +132,28 @@ h2 {
 
 form {
   display: flex;
+  margin: 2rem 0;
 }
 
-input {
+input,
+select {
   background-color: white;
   border: 1px solid silver;
   padding: 5px;
   font-size: 12pt;
-  color: gray;
+  color: silver;
   height: 25pt;
-  width: 40%;
   border-radius: 5px;
   margin-right: 15px;
+}
+
+select {
+  height: 45px;
+  width: 180px;
+}
+
+input:first-child {
+  width: 60%;
 }
 
 circle {

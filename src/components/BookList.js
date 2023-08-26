@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { removeBookAsync, appId } from '../redux/books/booksSlice';
+import Button from './Button';
 
 function BookList({ book, randomNum }) {
   const [progress, setProgress] = useState(randomNum);
@@ -26,11 +27,11 @@ function BookList({ book, randomNum }) {
         <p>{book.category}</p>
         <h2>{book.title}</h2>
         <sub>{book.author}</sub>
-        <ul>
-          <li><a href="return false">Comments</a></li>
-          <li><a href="return false" onClick={handleRemoveBook}>Remove</a></li>
-          <li><a href="return false">Edit</a></li>
-        </ul>
+        <div>
+          <Button onClick={null} text="Comment" />
+          <Button onClick={handleRemoveBook} text="Remove" />
+          <Button onClick={null} text="Edit" />
+        </div>
       </div>
       <div className="part-2">
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
