@@ -1,40 +1,49 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import { addBook } from '../redux/books/booksSlice';
+import Button from './Button';
 
-const BookForm = ({ onAdd }) => {
+const BookForm = () => {
+  const categories = [
+    { id: 1, name: 'Learning' },
+    { id: 2, name: 'Philosophy' },
+    { id: 3, name: 'Religion' },
+  ];
+
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
+  const [category, setCategory] = useState('Learning');
 
-  const handleSubmit = (e) => {
+  const submitAddBook = (e) => {
     e.preventDefault();
-    if (title && author) {
-      onAdd({ title, author });
-      setTitle('');
-      setAuthor('');
-    }
+    dispatch(addBook({
+      id: uuidv4(),
+      title,
+      author,
+      progress: 'currently reading',
+      categories: ['All', category],
+    }));
+    setTitle('');
+    setAuthor('');
   };
 
   return (
-    <form onSubmit={handleSubmit} className="book-form">
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Author"
-        value={author}
-        onChange={(e) => setAuthor(e.target.value)}
-      />
-      <button type="submit">Add Book</button>
+    <form onSubmit={(e) => addBook(e)}>
+      <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" />
+      <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Author" />
+      <select name="categories" id="categories" onChange={(e) => setCategory(e.target.value)}>
+        {categories.map((category) => (
+          <option key={category.id} value={category.name}>
+            {category.name}
+          </option>
+        ))}
+      </select>
+      <Button onClick={(e) => submitAddBook(e)} text="Add" />
     </form>
   );
-};
-
-BookForm.propTypes = {
-  onAdd: PropTypes.func.isRequired,
 };
 
 export default BookForm;

@@ -1,28 +1,32 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import PropTypes from 'prop-types';
-import template from '../assets/images/template.jpg';
+import { useDispatch } from 'react-redux';
+import { removeBook, toggleBook } from '../redux/books/booksSlice';
+import Button from './Button';
 
-const Book = ({ title, author, onDelete }) => (
-  <div className="book">
-    <img src={template} alt="" />
-    <div>
-      <h3>{title}</h3>
-      <p>
-        Author
-        {' : '}
-        {author}
-      </p>
-      <button type="button" onClick={onDelete}>
-        Delete
-      </button>
-    </div>
-  </div>
-);
+const Book = (props) => {
+  const {
+    id, title, author, progress,
+  } = props;
+  const dispatch = useDispatch();
+  return (
+    <li key={id}>
+      <h1>{title}</h1>
+      <h2>{author}</h2>
+      <input checked={progress === 'read'} type="checkbox" onClick={() => dispatch(toggleBook(id))} />
+      <h3>{progress}</h3>
+      <Button onClick={() => dispatch(removeBook(id))} text="Remove" />
+    </li>
+  );
+};
 
 Book.propTypes = {
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  progress: PropTypes.string.isRequired,
 };
 
 export default Book;
