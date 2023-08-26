@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const http = axios.create({
-  baseURL: 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/LcONFhYlA4cP8UbBU5Gc',
+  baseURL: 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/',
   headers: {
     'Content-type': 'application/json',
   },
@@ -15,4 +15,4 @@ const remove = (id) => http.delete(`/books/${id}`);
 
 const bookService = { getAll, create, remove };
 
-export default bookService;
+//export default bookService;
