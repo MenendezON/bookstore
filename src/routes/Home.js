@@ -21,9 +21,11 @@ const Home = () => {
         {books.map((book) => (
           <div className="individualBookDiv" key={uuidv4()}>
             {' '}
-            <BookList book={book} />
+            <BookList book={book} randomNum={Math.floor(Math.random() * 100)} />
           </div>
         ))}
+        <hr />
+        <h2>Add New Book</h2>
         <BookForm />
       </div>
     </section>

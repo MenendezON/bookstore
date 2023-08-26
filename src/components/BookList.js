@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { removeBookAsync, appId } from '../redux/books/booksSlice';
 
-function BookList({ book }) {
+function BookList({ book, randomNum }) {
+  const [progress, setProgress] = useState(randomNum);
+
+  const strokeDashoffset = 200 - (200 * progress) / 100;
+
+  const style = {
+    backgroundColor: `hsl(${randomNum}, 100%, 80%)`,
+    strokeWidth: '10px',
+    strokeDasharray: '200',
+    strokeDashoffset: `${strokeDashoffset}`,
+  };
   const dispatch = useDispatch();
 
   const handleRemoveBook = async () => {
@@ -11,24 +21,35 @@ function BookList({ book }) {
   };
 
   return (
-    <div className="individualBookLiItem">
-      <div>
-        <h2>
-          Title:
-          {book.title}
-        </h2>
-        <h3>
-          Author:
-          {book.author}
-        </h3>
-        <h4>
-          Category:
-          {book.category}
-        </h4>
+    <div className="book">
+      <div className="part-1">
+        <p>{book.category}</p>
+        <h2>{book.title}</h2>
+        <sub>{book.author}</sub>
+        <ul>
+          <li><a href="return false">Comments</a></li>
+          <li><a href="return false" onClick={handleRemoveBook}>Remove</a></li>
+          <li><a href="return false">Edit</a></li>
+        </ul>
       </div>
-      <button className="delete" type="button" onClick={handleRemoveBook}>
-        Delete
-      </button>
+      <div className="part-2">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+          <defs>
+            <linearGradient id="GradientColor">
+              <stop offset="0%" stopColor="#54B4FF" />
+              <stop offset="100%" stopColor="#673ab7" />
+            </linearGradient>
+          </defs>
+          <circle style={style} cx="80" cy="80" r="70" strokeLinecap="round" />
+        </svg>
+      </div>
+      <div className="part-3">
+        <p>Current chapter</p>
+        <p>Chapter 17</p>
+        <button className="delete" type="button" onClick={() => setProgress(progress + 5)}>
+          Update progress
+        </button>
+      </div>
     </div>
   );
 }
@@ -40,5 +61,6 @@ BookList.propTypes = {
     author: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
   }).isRequired,
+  randomNum: PropTypes.number.isRequired,
 };
 export default BookList;

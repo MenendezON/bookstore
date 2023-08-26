@@ -23,8 +23,6 @@ function BookForm() {
 
   return (
     <form>
-      <h2>Add New Book</h2>
-
       <input
         type="text"
         placeholder="Title"
