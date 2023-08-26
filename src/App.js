@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Home from './routes/Home';
-import Categories from './routes/Category';
+import Category from './routes/Category';
 import Header from './components/Header';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/categories" element={<Categories />} />
+          <Route path="/categories" element={<Category />} />
         </Routes>
       </main>
     </>
