@@ -1,53 +1,32 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import Book from '../components/Book';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import BookList from '../components/BookList';
 import BookForm from '../components/BookForm';
+import { fetchBooksAsync, appId } from '../redux/books/booksSlice';
 
 const Home = () => {
-  const books = useSelector((configureStore) => configureStore.book);
+  const dispatch = useDispatch();
+  const books = useSelector((state) => state.books.books);
+  const status = useSelector((state) => state.books.status);
 
-  const [filter, setFilter] = useState('All');
-
-  const filterOptions = [
-    { id: 1, name: 'All' },
-    { id: 2, name: 'Learning' },
-    { id: 3, name: 'Philosophy' },
-    { id: 4, name: 'Religion' },
-  ];
+  useEffect(() => {
+    dispatch(fetchBooksAsync(appId));
+  }, []);
 
   return (
-    <div>
-      <ul className="filters">
-        {filterOptions.map((option) => (
-          <button
-            type="button"
-            onClick={() => {
-              setFilter(option.name);
-            }}
-            key={option.id}
-            style={{ backgroundColor: filter === option.name ? 'blue' : 'white', color: filter === option.name ? 'white' : 'black' }}
-          >
-            {option.name}
-
-          </button>
+    <section className="homePageDiv">
+      <div className="bookListDiv">
+        <p>{status}</p>
+        {books.map((book) => (
+          <div className="individualBookDiv" key={uuidv4()}>
+            {' '}
+            <BookList book={book} />
+          </div>
         ))}
-      </ul>
-      <ul>
-        {/* Filter books where categories contain current filter */}
-        {books.filter((book) => book.categories.includes(filter)).map((book) => (
-          <Book
-            key={book.id}
-            id={book.id}
-            title={book.title}
-            author={book.author}
-            progress={book.progress}
-          />
-        ))}
-      </ul>
-      <hr />
-      <h2>Add new book</h2>
-      <BookForm />
-    </div>
+        <BookForm />
+      </div>
+    </section>
   );
 };
 

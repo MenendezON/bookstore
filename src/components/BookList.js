@@ -1,29 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Book from './Book';
+import { useDispatch } from 'react-redux';
+import { removeBookAsync, appId } from '../redux/books/booksSlice';
 
-const BookList = ({ books, onDelete }) => (
-  <div className="book-list">
-    {books.map((book) => (
-      <Book
-        key={book.id}
-        title={book.title}
-        author={book.author}
-        onDelete={() => onDelete(book.id)}
-      />
-    ))}
-  </div>
-);
+function BookList({ book }) {
+  const dispatch = useDispatch();
+
+  const handleRemoveBook = async () => {
+    await dispatch(removeBookAsync({ appId, itemId: book.item_id }));
+  };
+
+  return (
+    <div className="individualBookLiItem">
+      <div>
+        <h2>
+          Title:
+          {book.title}
+        </h2>
+        <h3>
+          Author:
+          {book.author}
+        </h3>
+        <h4>
+          Category:
+          {book.category}
+        </h4>
+      </div>
+      <button className="delete" type="button" onClick={handleRemoveBook}>
+        Delete
+      </button>
+    </div>
+  );
+}
 
 BookList.propTypes = {
-  books: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  onDelete: PropTypes.func.isRequired,
+  book: PropTypes.shape({
+    item_id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+  }).isRequired,
 };
-
 export default BookList;

@@ -33,6 +33,11 @@
 This website is specifically crafted for exploring book details.
 
 ## 🛠 Built With <a name="built-with"></a>
+## Built With
+- React
+- Redux
+- NodeJS
+- Linters
 
 ### Tech Stack <a name="tech-stack"></a>
 

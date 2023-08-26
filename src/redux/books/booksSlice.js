@@ -1,76 +1,76 @@
-const ADD_BOOK = 'bookstore/books/ADD_BOOK';
-const REMOVE_BOOK = 'bookstore/books/REMOVE_BOOK';
-const TOGGLE_BOOK = 'bookstore/books/TOGGLE_BOOK';
-const initialState = [
-  {
-    id: '1',
-    title: 'The Alchemist',
-    author: 'Paulo Coelho',
-    progress: 'read',
-    categories: ['All', 'Learning'],
-  },
-  {
-    id: '2',
-    title: 'The Little Prince',
-    author: 'Antoine de Saint-Exupéry',
-    progress: 'currently reading',
-    categories: ['All', 'Learning'],
-  },
-  {
-    id: '3',
-    title: 'The Prophet',
-    author: 'Kahlil Gibran',
-    progress: 'currently reading',
-    categories: ['All', 'Philosophy'],
-  },
-];
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-const booksReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_BOOK:
-      return [...state, action.payload];
-    case TOGGLE_BOOK:
-      return state.map((book) => {
-        if (book.id === action.payload) {
-          return {
-            ...book,
-            progress: book.progress === 'read' ? 'currently reading' : 'read',
-          };
+const initialState = {
+  books: [],
+  status: '',
+  error: null,
+};
+
+const baseBooksURL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/';
+export const appId = 'kLivYWfk0nGVQW8K0TO2';
+
+export const fetchBooksAsync = createAsyncThunk(
+  'books/fetchBooks',
+  async () => {
+    const response = await axios.get(`${baseBooksURL}apps/${appId}/books`);
+    console.log('status is:', response);
+    console.log('fetched data is:', response.data);
+    return response.data;
+  },
+);
+
+export const addBookAsync = createAsyncThunk(
+  'books/addBook',
+  async ({ book }) => {
+    await axios.post(`${baseBooksURL}apps/${appId}/books`, book);
+    return book;
+  },
+);
+
+export const removeBookAsync = createAsyncThunk(
+  'books/removeBook',
+  async ({ itemId }) => {
+    await axios.delete(`${baseBooksURL}apps/${appId}/books/${itemId}`);
+    return itemId;
+  },
+);
+
+const booksSlice = createSlice({
+  name: 'books',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchBooksAsync.fulfilled, (state, action) => {
+        if (action.payload !== '') {
+          const books = [];
+          const keys = Object.keys(action.payload);
+          keys.forEach((keyOfActionPayload) => {
+            books.push({
+              item_id: keyOfActionPayload,
+              ...action.payload[keyOfActionPayload][0],
+            });
+          });
+          state.books = books;
+          if (state.books.length === 0) state.error = 'No data was found';
+        } else {
+          state.error = 'No result';
         }
-        return book;
+      })
+      .addCase(addBookAsync.fulfilled, (state, action) => {
+        state.books = [...state.books, action.payload];
+      })
+      .addCase(removeBookAsync.fulfilled, (state, action) => {
+        state.status = 'Book has been removed!';
+        state.books = state.books.filter(
+          (book) => book.item_id !== action.payload,
+        );
+      })
+      .addCase(removeBookAsync.pending, (state) => {
+        state.status = 'Loading...';
       });
-    case REMOVE_BOOK:
-      return state.filter((item) => item.id !== action.payload);
-    default: return state;
-  }
-};
-const addBook = (book) => ({
-  type: ADD_BOOK,
-  payload: book,
-});
-const removeBook = (id) => ({
-  type: REMOVE_BOOK,
-  payload: id,
+  },
 });
 
-const toggleBook = (id) => ({
-  type: TOGGLE_BOOK,
-  payload: id,
-});
-
-const visibilityFilter = (
-  state = 'SHOW_ALL',
-  action,
-) => {
-  switch (action.type) {
-    case 'CHANGE_FILTER':
-      return action.filter;
-    default:
-      return state;
-  }
-};
-
-export default booksReducer;
-export {
-  addBook, removeBook, toggleBook, visibilityFilter,
-};
+export default booksSlice.reducer;

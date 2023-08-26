@@ -1,18 +1,21 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { checkStatus } from '../redux/categories/categoriesSlice';
+import { createSlice } from '@reduxjs/toolkit';
 
-const Category = () => {
-  const dispatch = useDispatch();
-  const status = useSelector((state) => state.category);
-  return (
-    <>
-      <p>{status}</p>
-      <button type="button" onClick={() => dispatch(checkStatus())}>
-        Check Status
-      </button>
-    </>
-  );
-};
+export const categoriesSlice = createSlice({
+  name: 'categories',
+  initialState: {
+    categories: [],
+  },
+  reducers: {
+    checkStatus: (state, action) => ({
+      ...state,
+      categories:
+        action.payload === 'Under construction'
+          ? [action.payload]
+          : state.categories,
+    }),
+  },
+});
 
-export default Category;
+export const { checkStatus } = categoriesSlice.actions;
+
+export default categoriesSlice.reducer;
