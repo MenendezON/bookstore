@@ -123,15 +123,6 @@ h2 {
   color: silver;
 }
 
-.part-2 .progress-bar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background:
-    radial-gradient(closest-side, white 79%, transparent 80% 100%),
-    conic-gradient(#1e9cff 75%, silver 0);
-}
-
 form {
   display: flex;
 }
