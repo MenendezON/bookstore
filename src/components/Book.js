@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { removeBook, toggleBook } from '../redux/books/booksSlice';
+import Button from './Button';
 
 const Book = (props) => {
   const {
@@ -16,7 +17,7 @@ const Book = (props) => {
       <h2>{author}</h2>
       <input checked={progress === 'read'} type="checkbox" onClick={() => dispatch(toggleBook(id))} />
       <h3>{progress}</h3>
-      <button type="button" onClick={() => dispatch(removeBook(id))}>Remove</button>
+      <Button onClick={() => dispatch(removeBook(id))} text="Remove" />
     </li>
   );
 };

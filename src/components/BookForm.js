@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addBook } from '../redux/books/booksSlice';
+import Button from './Button';
 
 const BookForm = () => {
   const categories = [
@@ -39,7 +40,7 @@ const BookForm = () => {
           </option>
         ))}
       </select>
-      <button type="submit" onClick={(e) => submitAddBook(e)}>Add</button>
+      <Button onClick={(e) => submitAddBook(e)} text="Add" />
     </form>
   );
 };
