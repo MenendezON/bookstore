@@ -113,6 +113,13 @@ h2 {
 
 .part-2 {
   width: 25%;
+  display: flex;
+}
+
+.part-2 div {
+  padding-top: 50px;
+  font-size: 18pt;
+  font-weight: bold;
 }
 
 .part-3 {

@@ -42,6 +42,10 @@ function BookList({ book, randomNum }) {
           </defs>
           <circle style={style} cx="80" cy="80" r="50" strokeLinecap="round" />
         </svg>
+        <div>
+          {progress}
+          %
+        </div>
       </div>
       <div className="part-3">
         <p>Current chapter</p>
