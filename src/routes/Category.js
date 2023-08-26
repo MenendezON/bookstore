@@ -1,16 +1,18 @@
-const CHECK_STATUS = 'book-store/categories/CHECK_STATUS';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { checkStatus } from '../redux/categories/categoriesSlice';
 
-const STATUS = 'Under Construction';
-
-const Category = (state = [], action) => {
-  switch (action.type) {
-    case CHECK_STATUS:
-      return STATUS;
-    default:
-      return state;
-  }
+const Category = () => {
+  const dispatch = useDispatch();
+  const status = useSelector((state) => state.category);
+  return (
+    <>
+      <p>{status}</p>
+      <button type="button" onClick={() => dispatch(checkStatus())}>
+        Check Status
+      </button>
+    </>
+  );
 };
-
-export const checkStatus = () => ({ type: CHECK_STATUS });
 
 export default Category;
