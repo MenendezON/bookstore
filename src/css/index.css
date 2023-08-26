@@ -36,6 +36,7 @@ code {
   border-radius: 8px;
   border: 1px solid silver;
   display: flex;
+  height: 140px;
 }
 
 button {

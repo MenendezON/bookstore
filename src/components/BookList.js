@@ -6,12 +6,12 @@ import { removeBookAsync, appId } from '../redux/books/booksSlice';
 function BookList({ book, randomNum }) {
   const [progress, setProgress] = useState(randomNum);
 
-  const strokeDashoffset = 200 - (200 * progress) / 100;
+  const strokeDashoffset = 472 - (472 * progress) / 100;
 
   const style = {
     backgroundColor: `hsl(${randomNum}, 100%, 80%)`,
-    strokeWidth: '10px',
-    strokeDasharray: '200',
+    strokeWidth: '20px',
+    strokeDasharray: '472',
     strokeDashoffset: `${strokeDashoffset}`,
   };
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ function BookList({ book, randomNum }) {
               <stop offset="100%" stopColor="#673ab7" />
             </linearGradient>
           </defs>
-          <circle style={style} cx="80" cy="80" r="70" strokeLinecap="round" />
+          <circle style={style} cx="80" cy="80" r="50" strokeLinecap="round" />
         </svg>
       </div>
       <div className="part-3">
