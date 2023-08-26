@@ -1,49 +1,47 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { addBook } from '../redux/books/booksSlice';
-import Button from './Button';
+import { addBookAsync, appId } from '../redux/books/booksSlice';
 
-const BookForm = () => {
-  const categories = [
-    { id: 1, name: 'Learning' },
-    { id: 2, name: 'Philosophy' },
-    { id: 3, name: 'Religion' },
-  ];
-
+function BookForm() {
   const dispatch = useDispatch();
-
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [category, setCategory] = useState('Learning');
 
-  const submitAddBook = (e) => {
-    e.preventDefault();
-    dispatch(addBook({
-      id: uuidv4(),
+  const handleAddBook = async () => {
+    const newBook = {
+      item_id: uuidv4(),
       title,
       author,
-      progress: 'currently reading',
-      categories: ['All', category],
-    }));
+      category: 'Under the construction',
+    };
+    await dispatch(addBookAsync({ appId, book: newBook }));
+
     setTitle('');
     setAuthor('');
   };
 
   return (
-    <form onSubmit={(e) => addBook(e)}>
-      <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" />
-      <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Author" />
-      <select name="categories" id="categories" onChange={(e) => setCategory(e.target.value)}>
-        {categories.map((category) => (
-          <option key={category.id} value={category.name}>
-            {category.name}
-          </option>
-        ))}
-      </select>
-      <Button onClick={(e) => submitAddBook(e)} text="Add" />
+    <form>
+      <h2>Add New Book</h2>
+
+      <input
+        type="text"
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Author"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+      />
+      <button className="addBook" type="button" onClick={handleAddBook}>
+        Add Book
+      </button>
     </form>
   );
-};
+}
 
 export default BookForm;
