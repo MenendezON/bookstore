@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import { addBook } from '../redux/books/booksSlice';
 import Button from './Button';
 
@@ -19,7 +20,7 @@ const BookForm = () => {
   const submitAddBook = (e) => {
     e.preventDefault();
     dispatch(addBook({
-      id: '4',
+      id: uuidv4(),
       title,
       author,
       progress: 'currently reading',
