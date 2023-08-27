@@ -1,22 +1,14 @@
+@font-face {
+  font-family: Monserrat;
+  src: url(../assets/fonts/Montserrat-Regular.ttf);
+}
+
 body {
   margin: 0;
   padding: 0;
   background-color: #fafafa;
   box-sizing: border-box;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    'Roboto',
-    'Oxygen',
-    'Ubuntu',
-    'Cantarell',
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Monserrat, sans-serif;
 }
 
 code {
@@ -32,10 +24,11 @@ code {
 .book {
   background-color: #fff;
   padding: 15px;
-  margin: 25px 0;
+  margin: 20px 0;
   border-radius: 8px;
   border: 1px solid silver;
   display: flex;
+  height: 140px;
 }
 
 button {
@@ -48,31 +41,35 @@ button {
   border: 0;
 }
 
-.book button {
+.book > button {
   height: 30px;
   background-color: #1e9cff;
   text-transform: uppercase;
   border-radius: 5px;
+  margin-top: 10px;
   color: white;
-  width: 100px;
   border: 0;
 }
 
-h3 {
-  padding: 0;
-  margin: 0;
-}
-
-.book img {
-  width: 200px;
-  margin-right: 20px;
-  border-radius: 5px;
-}
-
-.book p {
+.book sub {
   color: #1e9cff;
   font-size: 11pt;
   margin-bottom: 15px;
+}
+
+.part-3 button {
+  margin-top: 15px;
+  width: 150px;
+}
+
+.part-1 div button {
+  background-color: white;
+  color: #a9c8e2;
+  width: 65px;
+  padding: 0;
+  margin-right: 15px;
+  text-transform: none;
+  cursor: pointer;
 }
 
 hr {
@@ -80,23 +77,78 @@ hr {
 }
 
 h2 {
+  padding: 0;
+  margin: 0;
   color: silver;
   text-transform: uppercase;
   font-size: 14pt;
 }
 
-form {
+.part-1 {
+  width: 50%;
+}
+
+.part-1 p {
+  font-weight: bold;
+  color: silver;
+}
+
+.part-1 h2 {
+  font-weight: bold;
+  color: black;
+}
+
+.part-1 sub {
+  color: #a9c8e2;
+}
+
+.part-2 {
+  width: 25%;
   display: flex;
 }
 
-input {
+.part-2 div {
+  padding-top: 50px;
+  font-size: 18pt;
+  font-weight: bold;
+}
+
+.part-3 {
+  width: 25%;
+}
+
+.part-3 p:first-child {
+  text-transform: uppercase;
+  color: silver;
+}
+
+form {
+  display: flex;
+  margin: 2rem 0;
+}
+
+input,
+select {
   background-color: white;
   border: 1px solid silver;
   padding: 5px;
   font-size: 12pt;
-  color: gray;
+  color: silver;
   height: 25pt;
-  width: 40%;
   border-radius: 5px;
   margin-right: 15px;
+}
+
+select {
+  height: 45px;
+  width: 180px;
+}
+
+input:first-child {
+  width: 60%;
+}
+
+circle {
+  fill: none;
+  stroke: url(#GradientColor);
 }

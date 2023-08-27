@@ -6,37 +6,33 @@ import { addBookAsync, appId } from '../redux/books/booksSlice';
 function BookForm() {
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+  const [category, setCategory] = useState('');
 
   const handleAddBook = async () => {
     const newBook = {
       item_id: uuidv4(),
       title,
-      author,
-      category: 'Under the construction',
+      author: 'King Arthur',
+      category,
     };
     await dispatch(addBookAsync({ appId, book: newBook }));
 
     setTitle('');
-    setAuthor('');
   };
 
   return (
     <form>
-      <h2>Add New Book</h2>
-
       <input
         type="text"
         placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <input
-        type="text"
-        placeholder="Author"
-        value={author}
-        onChange={(e) => setAuthor(e.target.value)}
-      />
+      <select onChange={(e) => setCategory(e.target.selectedIndex)}>
+        <option>Action</option>
+        <option>Comedy</option>
+        <option>Drama</option>
+      </select>
       <button className="addBook" type="button" onClick={handleAddBook}>
         Add Book
       </button>
